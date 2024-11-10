@@ -1,10 +1,12 @@
+import mongoose from "mongoose";
+
 const strosekSchema = new mongoose.Schema({
+    id: {type: String},
     naziv: { type: String, required: true },
     znesek: { type: Number, required: true },
     datum: { type: Date, default: Date.now },
-    kategorija: { type: String, required: true },
-    zaposleni: { type: mongoose.Schema.Types.ObjectId, ref: 'Zaposleni' }
+    kategorija: { type: String, required: true }
   });
   
-  const Strosek = mongoose.model('Strosek', strosekSchema);
+  export const Strosek = mongoose.model('Strosek', strosekSchema);
   

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const zaposleniSchema = new mongoose.Schema({
+    id: {type: String},
   ime: { type: String, required: true },
   priimek: { type: String, required: true },
   vloga: { type: String, enum: ['zaposleni', 'direktor', 'finančni analitik', 'marketinški analitik'], required: true },

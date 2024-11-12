@@ -21,7 +21,9 @@ export const addZaposleni = async (req: Request, res: Response) => {
             znesek: req.body.znesek,
             datum: req.body.datum,
             kategorija: req.body.kategorija,
-            zaposleni: req.body.zaposleni
+            oseba: req.body.oseba,
+            nacinPlacila: req.body.nacinPlacila,
+            komentar: req.body.komentar,
         });
         await strosek.save();
         res.status(201).json(strosek);

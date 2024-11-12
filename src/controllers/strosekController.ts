@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 
 import {Strosek} from '../models/strosek.model';
 
-export const getStroski = async (req: Request, res: Response) => {
+export const getZaposleni = async (req: Request, res: Response) => {
     try {
 		const stroski = await Strosek.find();
 		res.status(200).json(stroski);
@@ -14,7 +14,7 @@ export const getStroski = async (req: Request, res: Response) => {
 	}
 };
 
-export const addStrosek = async (req: Request, res: Response) => {
+export const addZaposleni = async (req: Request, res: Response) => {
     try{
         const strosek = new Strosek({
             naziv: req.body.naziv,
@@ -32,7 +32,7 @@ export const addStrosek = async (req: Request, res: Response) => {
     })};
 };
 
-export const deleteStrosek = async (req: Request, res: Response) => {
+export const deleteZaposleni = async (req: Request, res: Response) => {
     try{
         const strosekId = req.params.id;
         await Strosek.findByIdAndDelete({_id: strosekId});

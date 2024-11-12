@@ -1,17 +1,17 @@
 import express from 'express';
 
-import { addZaposleni, deleteZaposleni, getZaposleni } from '../controllers/strosekController';
+import { addZaposleni, deleteZaposleni, getZaposleni } from '../controllers/zaposlenController';
 
 const router = express.Router();
 
 /**
  * @swagger
- * /stroski:
+ * /zaposleni:
  *   get:
- *     summary: Pridobi seznam vseh stroÅ¡kov
+ *     summary: Pridobi seznam vseh stroškov
  *     responses:
  *       200:
- *         description: UspeÅ¡no pridobljen seznam stroÅ¡kov
+ *         description: Uspešno pridobljen seznam stroškov
  *         content:
  *           application/json:
  *             schema:
@@ -21,18 +21,18 @@ const router = express.Router();
  *                 properties:
  *                   naziv:
  *                     type: string
- *                     description: Naziv stroÅ¡ka
+ *                     description: Naziv stroška
  *                   znesek:
  *                     type: number
- *                     description: Znesek stroÅ¡ka
+ *                     description: Znesek stroška
  */
 router.get('/', getZaposleni);
 
 /**
  * @swagger
- * /stroski/add:
+ * /zaposleni/add:
  *   post:
- *     summary: Dodaj nov stroÅ¡ek
+ *     summary: Dodaj nov strošek
  *     requestBody:
  *       required: true
  *       content:
@@ -41,28 +41,28 @@ router.get('/', getZaposleni);
  *             $ref: '../models/Strosek'
  *     responses:
  *       201:
- *         description: UspeÅ¡no dodan stroÅ¡ek
+ *         description: Uspešno dodan strošek
  *       400:
- *         description: Napaka pri dodajanju stroÅ¡ka
+ *         description: Napaka pri dodajanju stroška
  */
 router.post('/add', addZaposleni);
 
 /**
  * @swagger
- * /stroski/delete/{id}:
+ * /zaposleni/delete/{id}:
  *   delete:
- *     summary: IzbriÅ¡i stroÅ¡ek
- *     description: IzbriÅ¡e stroÅ¡ek na podlagi podanega ID-ja.
+ *     summary: Izbriši strošek
+ *     description: Izbriše strošek na podlagi podanega ID-ja.
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *           description: ID stroÅ¡ka, ki ga Å¾elite izbrisati
+ *           description: ID stroška, ki ga želite izbrisati
  *     responses:
  *       200:
- *         description: StroÅ¡ek uspeÅ¡no izbrisan
+ *         description: Strošek uspešno izbrisan
  *         content:
  *           application/json:
  *             schema:
@@ -70,13 +70,13 @@ router.post('/add', addZaposleni);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "StroÅ¡ek uspeÅ¡no izbrisan."
+ *                   example: "Strošek uspešno izbrisan."
  *       400:
  *         description: Neveljaven ID
  *       404:
- *         description: StroÅ¡ek ni bil najden
+ *         description: Strošek ni bil najden
  *       500:
- *         description: Napaka na streÅ¾niku
+ *         description: Napaka na strežniku
  */
 router.delete('/delete/:id', deleteZaposleni);
 

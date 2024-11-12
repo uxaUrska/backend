@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const zaposleniSchema = new mongoose.Schema({
     id: {type: String},
     ime: { type: String, required: true },
     priimek: { type: String, required: true },
-    vloga: { type: String, enum: ['zaposleni', 'direktor', 'finančni analitik', 'marketinški analitik'], required: true },
-    email: { type: String, required: true, unique: true },
-    stroški: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Strošek' }]
+    vloga: { type: String, required: true },
+    email: { type: String, required: true, unique: true }
 });
 
-const Zaposleni = mongoose.model('Zaposleni', zaposleniSchema);
+export const Zaposleni = mongoose.model('Zaposleni', zaposleniSchema);

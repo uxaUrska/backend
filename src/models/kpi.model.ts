@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const kpiSchema = new mongoose.Schema({
     id: {type: String},
     naziv: { type: String, required: true },

@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const analizaTrgaSchema = new mongoose.Schema({
     id: {type: String},
     naslov: { type: String, required: true },

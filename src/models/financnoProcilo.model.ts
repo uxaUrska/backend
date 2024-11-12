@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 const financnoPorociloSchema = new mongoose.Schema({
     id: {type: String},
     naslov: { type: String, required: true },

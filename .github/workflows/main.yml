@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies (Backend)
         working-directory: ./backend
         run: |
+          ls -la
           npm install
 
       - name: Run tests (Backend)

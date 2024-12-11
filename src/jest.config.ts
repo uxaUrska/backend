@@ -6,4 +6,3 @@ module.exports = {
     },
     moduleFileExtensions: ['ts', 'json'],
   };
-  

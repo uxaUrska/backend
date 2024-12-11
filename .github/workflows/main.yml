@@ -1,4 +1,4 @@
-name: Backend CI/CD
+name: Build and Test Application
 
 on:
   push:
@@ -9,27 +9,81 @@ on:
       - main
 
 jobs:
-  test-backend:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: npm ci
+      # Step 3: Cache node_modules for efficient dependency management
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: vodenje-stroskov/node_modules
+          key: ${{ runner.os }}-react-${{ hashFiles('vodenje-stroskov/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-react-
 
-    - name: Run tests and generate coverage report
-      run: |
-        npm test -- --watchAll=false --coverage
+      # Step 4: Install project dependencies
+      - name: Install dependencies
+        run: npm ci
+        working-directory: vodenje-stroskov
 
-    - name: Upload Coverage Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: backend-coverage
-        path: ./coverage
+      # Step 5: Build the application
+      - name: Build application
+        run: npm run build
+        working-directory: vodenje-stroskov
+
+      # Step 6: Run tests and generate coverage report
+      - name: Run tests and generate coverage report
+        run: |
+          npm test -- --watchAll=false --coverage
+        working-directory: vodenje-stroskov
+
+      # Step 7: Upload test coverage report as artifact
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-coverage
+          path: vodenje-stroskov/coverage/
+
+  backend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-backend-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-backend-
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Build backend application
+        run: npm run build
+        working-directory: backend
+
+      - name: Upload Backend Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-build
+          path: backend/build/

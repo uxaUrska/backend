@@ -1,7 +1,7 @@
 # Ime pipeline-a za backend
 name: Backend CI/CD
 
-# Sprožilci (push in pull_request na glavno vejo)
+# Sprožilci za workflow (push in pull_request na glavno vejo)
 on:
   push:
     branches:
@@ -27,7 +27,7 @@ jobs:
     - name: Cache node_modules  # Caching odvisnosti
       uses: actions/cache@v3
       with:
-        path: backend/node_modules  # Pot do node_modules
+        path: backend/node_modules  # Pot do mape node_modules
         key: ${{ runner.os }}-backend-${{ hashFiles('backend/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-backend-
@@ -36,7 +36,7 @@ jobs:
       run: npm ci
       working-directory: backend
 
-    - name: Build backend  # Gradnja aplikacije (če je potrebno)
+    - name: Build backend  # Gradnja aplikacije
       run: npm run build
       working-directory: backend
 
@@ -92,7 +92,7 @@ jobs:
     if: github.ref == 'refs/heads/main'  # Samo na glavni veji
 
     steps:
-    - name: Check out repository
+    - name: Check out repository  # Kloniranje repozitorija
       uses: actions/checkout@v3
 
     - name: Deploy application  # Ukaz za deploy (prilagodite glede na infrastrukturo)
